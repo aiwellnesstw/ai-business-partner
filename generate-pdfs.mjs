@@ -9,6 +9,10 @@ const FILES = [
   { src: 'deliverables/followup-scripts.md',            out: 'deliverables/AI業務夥伴_話術模板10種.pdf' },
   { src: 'deliverables/tool-guide.md',                  out: 'deliverables/AI業務夥伴_工具操作說明書.pdf' },
   { src: 'deliverables/enterprise-report-template.md',  out: 'deliverables/AI業務夥伴_企業分析報告模板.pdf' },
+  { src: 'deliverables/client-questionnaire.md',        out: 'deliverables/AI業務夥伴_客戶訪談問卷.pdf' },
+  { src: 'deliverables/service-contract.md',            out: 'deliverables/AI業務夥伴_服務合約書.pdf' },
+  { src: 'deliverables/acceptance-report.md',           out: 'deliverables/AI業務夥伴_驗收報告.pdf' },
+  { src: 'deliverables/maintenance-agreement.md',       out: 'deliverables/AI業務夥伴_月費維護協議.pdf' },
 ];
 
 const CSS = `
