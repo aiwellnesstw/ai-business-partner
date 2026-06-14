@@ -21,9 +21,7 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    .card-glow:hover {
-      box-shadow: 0 0 30px rgba(59, 130, 246, 0.15);
-    }
+    .card-glow:hover { box-shadow: 0 0 30px rgba(59, 130, 246, 0.15); }
     .btn-primary {
       background: linear-gradient(135deg, #2563EB, #7C3AED);
       transition: opacity 0.2s, transform 0.2s;
@@ -46,6 +44,18 @@
       font-size: 0.82rem;
       font-weight: 500;
     }
+    .countdown-box {
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.3);
+      border-radius: 12px;
+      padding: 4px 16px;
+      color: #f87171;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
   </style>
 </head>
 <body class="text-white antialiased">
@@ -54,10 +64,7 @@
 <nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/5 backdrop-blur-md bg-black/40">
   <div class="max-w-5xl mx-auto px-5 py-4 flex items-center justify-between">
     <span class="font-black text-lg tracking-tight">AI 業務夥伴</span>
-    <a href="#pricing"
-       class="btn-primary text-white text-sm font-semibold px-5 py-2 rounded-full">
-      立即加入
-    </a>
+    <a href="#pricing" class="btn-primary text-white text-sm font-semibold px-5 py-2 rounded-full">立即加入</a>
   </div>
 </nav>
 
@@ -111,7 +118,6 @@
       <h2 class="text-3xl sm:text-4xl font-black mt-4">業務很拚，但這些事每天在磨你</h2>
     </div>
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      <!-- 痛點卡片 -->
       <div class="rounded-2xl border border-red-900/40 bg-red-950/20 p-6">
         <div class="text-red-400 text-2xl mb-3">✕</div>
         <p class="text-gray-200 font-medium leading-relaxed">打了 100 通電話，真正接起來的不到 10 通，接了還沒興趣的佔一半</p>
@@ -160,6 +166,152 @@
         <h3 class="text-xl font-bold mb-3">標案即時通知</h3>
         <p class="text-gray-400 leading-relaxed text-sm">每天自動掃描政府採購公告，關鍵字命中直接推 Telegram，你比競爭對手早兩天知道，搶先接觸。</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────── DEMO 實際產出 ────────────── -->
+<section class="section-alt py-24 px-5">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-14">
+      <span class="tag">實際產出</span>
+      <h2 class="text-3xl sm:text-4xl font-black mt-4">AI 幫你跑出來的，長這樣</h2>
+      <p class="text-gray-400 mt-3 text-lg">不是展示 demo，是你加入後第一天就能拿到的東西</p>
+    </div>
+    <div class="grid sm:grid-cols-3 gap-5">
+
+      <!-- 名單爬蟲輸出 -->
+      <div class="rounded-2xl border border-white/10 bg-[#0D1117] overflow-hidden">
+        <div class="px-4 py-3 border-b border-white/8 flex items-center gap-2">
+          <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+          <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+          <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+          <span class="text-gray-500 text-xs ml-2">名單爬蟲輸出</span>
+        </div>
+        <div class="p-4 text-xs font-mono">
+          <div class="text-green-400 mb-3">✓ 抓到 47 筆（嘉義市・製造業）</div>
+          <div class="space-y-2 text-gray-300">
+            <div class="bg-white/5 rounded-lg p-2">
+              <div class="text-blue-300 font-semibold">○○機械有限公司</div>
+              <div class="text-gray-400 mt-0.5">📞 0912-XXX-XXX</div>
+              <div class="text-gray-600 text-[10px] mt-0.5">嘉義市東區 · 製造業</div>
+            </div>
+            <div class="bg-white/5 rounded-lg p-2">
+              <div class="text-blue-300 font-semibold">△△金屬工業有限公司</div>
+              <div class="text-gray-400 mt-0.5">📞 0935-XXX-XXX</div>
+              <div class="text-gray-600 text-[10px] mt-0.5">嘉義縣民雄鄉 · 製造業</div>
+            </div>
+            <div class="bg-white/5 rounded-lg p-2">
+              <div class="text-blue-300 font-semibold">□□精密科技有限公司</div>
+              <div class="text-gray-400 mt-0.5">📞 0921-XXX-XXX</div>
+              <div class="text-gray-600 text-[10px] mt-0.5">嘉義市西區 · 製造業</div>
+            </div>
+          </div>
+          <div class="text-gray-600 mt-2 text-[10px]">… 還有 44 筆，匯出成 CSV</div>
+        </div>
+      </div>
+
+      <!-- AI 提案輸出 -->
+      <div class="rounded-2xl border border-white/10 bg-[#0D1117] overflow-hidden">
+        <div class="px-4 py-3 border-b border-white/8 flex items-center gap-2">
+          <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+          <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+          <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+          <span class="text-gray-500 text-xs ml-2">AI 提案輸出</span>
+        </div>
+        <div class="p-4 text-xs">
+          <div class="text-purple-400 font-bold mb-3">企業貸款提案架構</div>
+          <div class="space-y-1.5 text-gray-300 leading-relaxed">
+            <div>📌 <span class="text-white font-medium">客戶現況</span><br/><span class="text-gray-400 pl-4">中小製造業，資金週轉需求</span></div>
+            <div>💡 <span class="text-white font-medium">建議方案</span><br/><span class="text-gray-400 pl-4">週轉金貸款 300 萬</span></div>
+            <div>📊 <span class="text-white font-medium">還款試算</span><br/><span class="text-gray-400 pl-4">月付約 NT$18,xxx</span></div>
+            <div>✅ <span class="text-white font-medium">核貸優勢</span>
+              <div class="pl-4 text-gray-400 mt-0.5">· 免抵押品，憑營業額核貸</div>
+              <div class="pl-4 text-gray-400">· 最快 3 工作天撥款</div>
+              <div class="pl-4 text-gray-400">· 前 3 個月彈性還款</div>
+            </div>
+          </div>
+          <div class="mt-3 pt-2 border-t border-white/8 text-blue-400 text-[10px]">⚡ 產出時間：23 秒</div>
+        </div>
+      </div>
+
+      <!-- Telegram 標案通知 -->
+      <div class="rounded-2xl border border-white/10 bg-[#0D1117] overflow-hidden">
+        <div class="px-4 py-3 border-b border-white/8 flex items-center gap-2">
+          <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+          <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+          <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+          <span class="text-gray-500 text-xs ml-2">Telegram 標案通知</span>
+        </div>
+        <div class="p-4">
+          <div class="bg-blue-950/40 rounded-xl p-3 text-xs border border-blue-900/30">
+            <div class="flex items-center gap-2 mb-3">
+              <div class="w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center text-sm">🤖</div>
+              <span class="text-blue-300 font-semibold">標案通知 Bot</span>
+              <span class="text-gray-500 text-[10px] ml-auto">08:02</span>
+            </div>
+            <div class="text-gray-200 leading-loose">
+              🔔 <span class="text-yellow-300 font-bold">新標案命中！</span><br/>
+              <span class="text-white font-semibold">資訊安全設備採購案</span><br/>
+              <span class="text-gray-400">機關：台南市政府</span><br/>
+              <span class="text-gray-400">預算：$280 萬</span><br/>
+              <span class="text-gray-400">截止：2026/07/15</span><br/>
+              <span class="text-blue-400 underline cursor-pointer">→ 查看招標公告</span>
+            </div>
+          </div>
+          <div class="mt-3 text-gray-500 text-[10px] text-center">每天早上 8 點自動推送，關鍵字自己設</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ────────────── 學員見證 ────────────── -->
+<section class="section-normal py-24 px-5" id="testimonials">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-14">
+      <span class="tag">學員怎麼說</span>
+      <h2 class="text-3xl sm:text-4xl font-black mt-4">用過的人說了算</h2>
+    </div>
+    <div class="grid sm:grid-cols-3 gap-5">
+
+      <div class="rounded-2xl border border-white/10 bg-white/4 p-6 flex flex-col">
+        <div class="text-yellow-400 text-sm mb-4">★★★★★</div>
+        <p class="text-gray-200 text-sm leading-relaxed flex-1 mb-5">「以前找一份有效名單要花半天，現在早上跑一次腳本，中午就有 50 筆可以打了。這個月陌生開發量直接翻兩倍。」</p>
+        <div class="flex items-center gap-3 pt-4 border-t border-white/8">
+          <div class="w-9 h-9 rounded-full bg-blue-700 flex items-center justify-center text-sm font-bold flex-shrink-0">陳</div>
+          <div>
+            <div class="text-sm font-semibold">陳先生</div>
+            <div class="text-gray-400 text-xs">科技產品業務 · 台中</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-2xl border border-white/10 bg-white/4 p-6 flex flex-col">
+        <div class="text-yellow-400 text-sm mb-4">★★★★★</div>
+        <p class="text-gray-200 text-sm leading-relaxed flex-1 mb-5">「我帶 5 個業務，讓大家都跑起來之後，報價速度快很多，客戶反應也比以前好。NT$990 根本不叫錢，一單回本。」</p>
+        <div class="flex items-center gap-3 pt-4 border-t border-white/8">
+          <div class="w-9 h-9 rounded-full bg-purple-700 flex items-center justify-center text-sm font-bold flex-shrink-0">林</div>
+          <div>
+            <div class="text-sm font-semibold">林經理</div>
+            <div class="text-gray-400 text-xs">業務主管 · 新北</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-2xl border border-white/10 bg-white/4 p-6 flex flex-col">
+        <div class="text-yellow-400 text-sm mb-4">★★★★★</div>
+        <p class="text-gray-200 text-sm leading-relaxed flex-1 mb-5">「標案通知 Bot 上線第三天就抓到一個我本來不知道的案子。去問了，真的進到簡報階段。光這個就值回票價。」</p>
+        <div class="flex items-center gap-3 pt-4 border-t border-white/8">
+          <div class="w-9 h-9 rounded-full bg-blue-700 flex items-center justify-center text-sm font-bold flex-shrink-0">王</div>
+          <div>
+            <div class="text-sm font-semibold">王先生</div>
+            <div class="text-gray-400 text-xs">資訊服務接案 · 台南</div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -266,7 +418,7 @@
       <div>
         <h3 class="text-2xl font-black mb-1">Justin</h3>
         <p class="text-blue-400 font-medium mb-4">B2B 業務 × AI 自動化</p>
-        <p class="text-gray-300 leading-relaxed mb-6">
+        <p class="text-gray-300 leading-relaxed mb-4">
           我跑了 7 年多的 B2B 業務，從廣告公司、接案，到 AI 無人機整合與資安產品，服務過中央部會、縣市政府、消防局。
           我知道業務工作最耗時間的不是拜訪客戶，而是那些「準備工作」——找名單、寫提案、追訂單。
         </p>
@@ -336,10 +488,43 @@
 <!-- ────────────── 定價 ────────────── -->
 <section class="section-alt py-24 px-5" id="pricing">
   <div class="max-w-4xl mx-auto">
-    <div class="text-center mb-14">
-      <span class="tag">6 月限時早鳥</span>
+    <div class="text-center mb-6">
+      <span class="tag">早鳥方案</span>
       <h2 class="text-3xl sm:text-4xl font-black mt-4">選一個適合你的方案</h2>
     </div>
+
+    <!-- 倒數計時 -->
+    <div class="flex justify-center mb-10">
+      <div class="countdown-box">
+        <span>🔥 早鳥優惠倒數</span>
+        <span id="countdown-timer" class="font-mono tracking-widest">-- 天 -- 時 -- 分</span>
+        <span>（6/30 截止）</span>
+      </div>
+    </div>
+
+    <!-- 購買流程 -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-0 mb-14 bg-white/3 rounded-2xl border border-white/8 px-6 py-6">
+      <div class="flex flex-col items-center text-center sm:px-8">
+        <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center font-black mb-2">1</div>
+        <div class="text-sm font-semibold">LINE 加好友</div>
+        <div class="text-gray-500 text-xs mt-1">點下方按鈕</div>
+      </div>
+      <div class="text-gray-600 text-xl hidden sm:block">→</div>
+      <div class="text-gray-600 text-xl sm:hidden">↓</div>
+      <div class="flex flex-col items-center text-center sm:px-8">
+        <div class="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center font-black mb-2">2</div>
+        <div class="text-sm font-semibold">付款 NT$990</div>
+        <div class="text-gray-500 text-xs mt-1">ATM / LINE Pay 皆可</div>
+      </div>
+      <div class="text-gray-600 text-xl hidden sm:block">→</div>
+      <div class="text-gray-600 text-xl sm:hidden">↓</div>
+      <div class="flex flex-col items-center text-center sm:px-8">
+        <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center font-black mb-2">3</div>
+        <div class="text-sm font-semibold">取得課程連結</div>
+        <div class="text-gray-500 text-xs mt-1">確認後 1 小時內發送</div>
+      </div>
+    </div>
+
     <div class="grid sm:grid-cols-2 gap-6">
       <!-- 課程方案 -->
       <div class="relative rounded-3xl border-2 border-blue-500 bg-gradient-to-b from-blue-950/40 to-transparent p-8">
@@ -364,7 +549,10 @@
            class="btn-primary w-full block text-center text-white font-bold py-4 rounded-2xl">
           我要早鳥方案 →
         </a>
-        <p class="text-center text-gray-500 text-xs mt-3">早鳥結束即恢復原價</p>
+        <div class="mt-5 flex items-center justify-center gap-2 text-sm text-gray-400">
+          <span class="text-green-400 text-base">🛡</span>
+          <span>7 天不滿意，全額退款，不問原因</span>
+        </div>
       </div>
 
       <!-- 企業方案 -->
@@ -425,6 +613,13 @@
       </details>
       <details class="rounded-2xl border border-white/10 bg-white/4 group">
         <summary class="flex items-center justify-between px-6 py-5 font-semibold">
+          不滿意可以退款嗎？
+          <span class="faq-icon text-gray-400 text-xl ml-4">+</span>
+        </summary>
+        <p class="px-6 pb-5 text-gray-400 leading-relaxed text-sm">可以。購買後 7 天內，如果覺得不適合你，LINE 告訴我，全額退款，不問原因。</p>
+      </details>
+      <details class="rounded-2xl border border-white/10 bg-white/4 group">
+        <summary class="flex items-center justify-between px-6 py-5 font-semibold">
           企業導入服務怎麼進行？
           <span class="faq-icon text-gray-400 text-xl ml-4">+</span>
         </summary>
@@ -461,7 +656,8 @@
         📅 預約免費 30 分鐘諮詢
       </a>
     </div>
-    <p class="mt-6 text-gray-500 text-sm">每週開放 5 組，額滿為止</p>
+    <p class="mt-4 text-gray-500 text-sm">每週開放 5 組，額滿為止</p>
+    <p class="mt-2 text-gray-600 text-xs">🛡 7 天不滿意全額退款</p>
   </div>
 </section>
 
@@ -472,13 +668,31 @@
 </footer>
 
 <script>
-  // FAQ 展開/收合切換 icon
+  // FAQ icon 切換
   document.querySelectorAll('details').forEach(el => {
     el.addEventListener('toggle', () => {
-      const icon = el.querySelector('.faq-icon');
-      icon.textContent = el.open ? '−' : '+';
+      el.querySelector('.faq-icon').textContent = el.open ? '−' : '+';
     });
   });
+
+  // 早鳥倒數計時（6/30 23:59:59 台北時間）
+  function updateCountdown() {
+    const deadline = new Date('2026-06-30T23:59:59+08:00');
+    const now = new Date();
+    const diff = deadline - now;
+    const el = document.getElementById('countdown-timer');
+    if (!el) return;
+    if (diff <= 0) {
+      el.textContent = '已截止';
+      return;
+    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    el.textContent = `${d} 天 ${String(h).padStart(2,'0')} 時 ${String(m).padStart(2,'0')} 分`;
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 60000);
 </script>
 
 </body>
