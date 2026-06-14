@@ -1,0 +1,12 @@
+{
+  "name": "ai-business-partner",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "gen-pdf": "node generate-pdfs.mjs"
+  },
+  "devDependencies": {
+    "marked": "^18.0.5",
+    "puppeteer-core": "^25.1.0"
+  }
+}
