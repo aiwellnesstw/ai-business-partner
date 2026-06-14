@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 業務夥伴 — 讓 AI 幫你找名單、寫報價、追客戶</title>
+  <meta name="description" content="專為業務員打造的 AI 工具包：自動抓客戶名單、秒速生成提案、標案即時通知。課程 + 企業導入，從今天讓 AI 幫你衝業績。" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif; }
+    .hero-bg {
+      background: radial-gradient(ellipse at 60% 0%, #1e3a8a22 0%, transparent 60%),
+                  radial-gradient(ellipse at 10% 80%, #7c3aed22 0%, transparent 50%),
+                  #070B14;
+    }
+    .text-gradient {
+      background: linear-gradient(90deg, #60A5FA 0%, #A78BFA 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .card-glow:hover {
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.15);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #2563EB, #7C3AED);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+    html { scroll-behavior: smooth; }
+    .section-alt { background: #0D1117; }
+    .section-normal { background: #070B14; }
+    details > summary { cursor: pointer; list-style: none; }
+    details > summary::-webkit-details-marker { display: none; }
+    details[open] .faq-icon { transform: rotate(45deg); }
+    .faq-icon { transition: transform 0.2s; }
+    .tag {
+      display: inline-block;
+      background: rgba(59,130,246,0.12);
+      border: 1px solid rgba(59,130,246,0.3);
+      color: #60A5FA;
+      border-radius: 999px;
+      padding: 2px 14px;
+      font-size: 0.82rem;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body class="text-white antialiased">
+
+<!-- ────────────── NAV ────────────── -->
+<nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/5 backdrop-blur-md bg-black/40">
+  <div class="max-w-5xl mx-auto px-5 py-4 flex items-center justify-between">
+    <span class="font-black text-lg tracking-tight">AI 業務夥伴</span>
+    <a href="#pricing"
+       class="btn-primary text-white text-sm font-semibold px-5 py-2 rounded-full">
+      立即加入
+    </a>
+  </div>
+</nav>
+
+<!-- ────────────── HERO ────────────── -->
+<section class="hero-bg min-h-screen flex flex-col items-center justify-center text-center px-5 pt-24 pb-20">
+  <div class="max-w-3xl mx-auto">
+    <span class="tag mb-6">業務員專屬 AI 工具包</span>
+    <h1 class="text-4xl sm:text-5xl md:text-6xl font-black leading-tight mt-4 mb-6">
+      你的 <span class="text-gradient">AI 業務夥伴</span><br />今天就上工
+    </h1>
+    <p class="text-gray-300 text-lg sm:text-xl max-w-xl mx-auto mb-10 leading-relaxed">
+      找名單、寫報價、追客戶、盯標案——<br />
+      這些事交給 AI，你只要專心去成交。
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="https://line.me/R/ti/p/@686czwde"
+         class="btn-primary flex items-center justify-center gap-2 text-white font-bold px-8 py-4 rounded-2xl text-base">
+        <svg class="w-5 h-5" viewBox="0 0 48 48" fill="currentColor"><path d="M24 4C12.95 4 4 11.88 4 21.6c0 5.74 3.14 10.83 8.03 14.17-.35 1.3-1.26 4.72-1.44 5.45-.23.9.33 1.83 1.24 1.83.18 0 .36-.04.52-.13l6.54-3.9c1.65.44 3.39.68 5.11.68 11.05 0 20-7.88 20-17.6S35.05 4 24 4z"/></svg>
+        LINE 加好友聊聊
+      </a>
+      <a href="#consult"
+         class="border border-white/20 text-white font-semibold px-8 py-4 rounded-2xl text-base hover:bg-white/5 transition">
+        預約免費 30 分鐘諮詢
+      </a>
+    </div>
+    <p class="mt-6 text-gray-500 text-sm">名額有限，每週開放 5 組免費諮詢</p>
+  </div>
+
+  <!-- 數字牆 -->
+  <div class="mt-20 grid grid-cols-3 gap-6 max-w-lg mx-auto">
+    <div class="text-center">
+      <div class="text-3xl font-black text-blue-400">7+</div>
+      <div class="text-gray-400 text-sm mt-1">年 B2B 業務經驗</div>
+    </div>
+    <div class="text-center">
+      <div class="text-3xl font-black text-purple-400">3</div>
+      <div class="text-gray-400 text-sm mt-1">核心 AI 業務工具</div>
+    </div>
+    <div class="text-center">
+      <div class="text-3xl font-black text-blue-400">0</div>
+      <div class="text-gray-400 text-sm mt-1">行需要寫程式</div>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────── 痛點 ────────────── -->
+<section class="section-alt py-24 px-5">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-14">
+      <span class="tag">你是不是也這樣</span>
+      <h2 class="text-3xl sm:text-4xl font-black mt-4">業務很拚，但這些事每天在磨你</h2>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <!-- 痛點卡片 -->
+      <div class="rounded-2xl border border-red-900/40 bg-red-950/20 p-6">
+        <div class="text-red-400 text-2xl mb-3">✕</div>
+        <p class="text-gray-200 font-medium leading-relaxed">打了 100 通電話，真正接起來的不到 10 通，接了還沒興趣的佔一半</p>
+      </div>
+      <div class="rounded-2xl border border-red-900/40 bg-red-950/20 p-6">
+        <div class="text-red-400 text-2xl mb-3">✕</div>
+        <p class="text-gray-200 font-medium leading-relaxed">一份報價單手刻要 1~2 小時，客戶等到不耐煩，成交機率直接砍半</p>
+      </div>
+      <div class="rounded-2xl border border-red-900/40 bg-red-950/20 p-6">
+        <div class="text-red-400 text-2xl mb-3">✕</div>
+        <p class="text-gray-200 font-medium leading-relaxed">追了三次客戶沒回音，不知道該堅持還是放手，靠感覺做決定</p>
+      </div>
+      <div class="rounded-2xl border border-red-900/40 bg-red-950/20 p-6">
+        <div class="text-red-400 text-2xl mb-3">✕</div>
+        <p class="text-gray-200 font-medium leading-relaxed">同事靠老客戶介紹，你沒背景只能陌生開發，每天像在沙漠裡找水</p>
+      </div>
+      <div class="rounded-2xl border border-red-900/40 bg-red-950/20 p-6 sm:col-span-2 lg:col-span-2">
+        <div class="text-red-400 text-2xl mb-3">✕</div>
+        <p class="text-gray-200 font-medium leading-relaxed">聽說 AI 很強，ChatGPT 玩了幾次，但說真的不知道業務工作能怎麼用，感覺自己被時代拋下</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────── 解法 ────────────── -->
+<section class="section-normal py-24 px-5">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-14">
+      <span class="tag">AI 業務夥伴</span>
+      <h2 class="text-3xl sm:text-4xl font-black mt-4">把這三件事，全部交給 AI</h2>
+      <p class="text-gray-400 mt-3 text-lg">你的時間只用來做一件事：成交。</p>
+    </div>
+    <div class="grid sm:grid-cols-3 gap-6">
+      <div class="rounded-2xl border border-blue-900/40 bg-gradient-to-b from-blue-950/30 to-transparent p-7 card-glow transition">
+        <div class="text-4xl mb-4">🎯</div>
+        <h3 class="text-xl font-bold mb-3">自動抓潛在客戶</h3>
+        <p class="text-gray-400 leading-relaxed text-sm">Google Maps + 104 雙管齊下，每天早上起床就有分類好的新名單，附行業、地區、電話，直接打過去。</p>
+      </div>
+      <div class="rounded-2xl border border-purple-900/40 bg-gradient-to-b from-purple-950/30 to-transparent p-7 card-glow transition">
+        <div class="text-4xl mb-4">⚡</div>
+        <h3 class="text-xl font-bold mb-3">秒速產出提案報價</h3>
+        <p class="text-gray-400 leading-relaxed text-sm">輸入客戶需求，AI 直接產出完整提案架構 + 報價邏輯，你改改細節就能發出去，10 分鐘搞定。</p>
+      </div>
+      <div class="rounded-2xl border border-blue-900/40 bg-gradient-to-b from-blue-950/30 to-transparent p-7 card-glow transition">
+        <div class="text-4xl mb-4">🔔</div>
+        <h3 class="text-xl font-bold mb-3">標案即時通知</h3>
+        <p class="text-gray-400 leading-relaxed text-sm">每天自動掃描政府採購公告，關鍵字命中直接推 Telegram，你比競爭對手早兩天知道，搶先接觸。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────── 課程內容 ────────────── -->
+<section class="section-alt py-24 px-5" id="course">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-14">
+      <span class="tag">6 個單元，邊學邊用</span>
+      <h2 class="text-3xl sm:text-4xl font-black mt-4">跟著做，課程結束你手上<br />就有一套跑起來的業務 AI 系統</h2>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-4">
+      <div class="flex gap-4 rounded-2xl border border-white/8 bg-white/3 p-6">
+        <div class="flex-shrink-0 w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center font-black text-sm">0</div>
+        <div>
+          <h4 class="font-bold mb-1">業務 AI 環境一次建好</h4>
+          <p class="text-gray-400 text-sm leading-relaxed">Claude、API、Telegram Bot 全部設定完，之後每個工具都能直接跑，不用再踩坑。</p>
+        </div>
+      </div>
+      <div class="flex gap-4 rounded-2xl border border-white/8 bg-white/3 p-6">
+        <div class="flex-shrink-0 w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center font-black text-sm">1</div>
+        <div>
+          <h4 class="font-bold mb-1">自動抓名單（Google Maps + 104）</h4>
+          <p class="text-gray-400 text-sm leading-relaxed">當天就能跑出你的第一批目標名單，附電話、行業、地區，篩選條件自己設。</p>
+        </div>
+      </div>
+      <div class="flex gap-4 rounded-2xl border border-white/8 bg-white/3 p-6">
+        <div class="flex-shrink-0 w-9 h-9 rounded-full bg-purple-600 flex items-center justify-center font-black text-sm">2</div>
+        <div>
+          <h4 class="font-bold mb-1">一鍵生提案 / 報價單</h4>
+          <p class="text-gray-400 text-sm leading-relaxed">輸入客戶背景，AI 給你完整提案架構。從此報價不再拖，客戶等不到就跑掉的問題消失。</p>
+        </div>
+      </div>
+      <div class="flex gap-4 rounded-2xl border border-white/8 bg-white/3 p-6">
+        <div class="flex-shrink-0 w-9 h-9 rounded-full bg-purple-600 flex items-center justify-center font-black text-sm">3</div>
+        <div>
+          <h4 class="font-bold mb-1">跟進話術 AI 庫</h4>
+          <p class="text-gray-400 text-sm leading-relaxed">不同情境的跟進訊息全部預設好：已讀不回、拒絕後再追、節日暖身……讓客戶自己回來。</p>
+        </div>
+      </div>
+      <div class="flex gap-4 rounded-2xl border border-white/8 bg-white/3 p-6">
+        <div class="flex-shrink-0 w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center font-black text-sm">4</div>
+        <div>
+          <h4 class="font-bold mb-1">標案即時通知系統</h4>
+          <p class="text-gray-400 text-sm leading-relaxed">政府採購公告自動掃描，你設好關鍵字，命中就推 Telegram，再也不會錯過標案。</p>
+        </div>
+      </div>
+      <div class="flex gap-4 rounded-2xl border border-white/8 bg-white/3 p-6">
+        <div class="flex-shrink-0 w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center font-black text-sm">5</div>
+        <div>
+          <h4 class="font-bold mb-1">整合實戰：一週跑完一個開發循環</h4>
+          <p class="text-gray-400 text-sm leading-relaxed">把五個工具串起來跑一次，你會親眼看到 AI 怎麼從零幫你完成一個完整的客戶開發流程。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────── 企業服務 ────────────── -->
+<section class="section-normal py-24 px-5" id="service">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-14">
+      <span class="tag">企業方案</span>
+      <h2 class="text-3xl sm:text-4xl font-black mt-4">幫你的業務團隊<br />客製化一套 AI 開發系統</h2>
+      <p class="text-gray-400 mt-3 text-lg max-w-xl mx-auto">課程學的是通用方法，企業服務是針對你的產業、你的客群、你的 SOP 量身打造。</p>
+    </div>
+    <div class="grid sm:grid-cols-3 gap-6 mb-10">
+      <div class="rounded-2xl border border-white/10 bg-white/4 p-6 text-center">
+        <div class="text-3xl mb-3">🔍</div>
+        <h4 class="font-bold mb-2">需求訪談</h4>
+        <p class="text-gray-400 text-sm">先免費 30 分鐘深入了解你的業務流程，找出最值得自動化的三個環節。</p>
+      </div>
+      <div class="rounded-2xl border border-white/10 bg-white/4 p-6 text-center">
+        <div class="text-3xl mb-3">🛠</div>
+        <h4 class="font-bold mb-2">客製開發</h4>
+        <p class="text-gray-400 text-sm">針對你的產業、客群、話術，量身打造 AI 工具，裝好就能直接用。</p>
+      </div>
+      <div class="rounded-2xl border border-white/10 bg-white/4 p-6 text-center">
+        <div class="text-3xl mb-3">📈</div>
+        <h4 class="font-bold mb-2">上線 + 維護</h4>
+        <p class="text-gray-400 text-sm">部署到你的環境，帶你的團隊上手，往後有問題可以繼續問。</p>
+      </div>
+    </div>
+    <div class="text-center">
+      <a href="#consult" class="btn-primary inline-block text-white font-bold px-8 py-4 rounded-2xl">
+        了解企業方案 →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────── 關於 Justin ────────────── -->
+<section class="section-alt py-24 px-5" id="about">
+  <div class="max-w-3xl mx-auto">
+    <div class="text-center mb-12">
+      <span class="tag">你的老師</span>
+    </div>
+    <div class="flex flex-col sm:flex-row gap-10 items-start">
+      <div class="flex-shrink-0 mx-auto sm:mx-0">
+        <div class="w-32 h-32 rounded-full bg-gradient-to-br from-blue-600 to-purple-700 flex items-center justify-center text-5xl font-black">
+          翁
+        </div>
+      </div>
+      <div>
+        <h3 class="text-2xl font-black mb-1">Justin 翁仲昱</h3>
+        <p class="text-blue-400 font-medium mb-4">B2B 業務 × AI 自動化</p>
+        <p class="text-gray-300 leading-relaxed mb-6">
+          我跑了 7 年多的 B2B 業務，從廣告公司、接案，到 AI 無人機整合與資安產品，服務過中央部會、縣市政府、消防局。
+          我知道業務工作最耗時間的不是拜訪客戶，而是那些「準備工作」——找名單、寫提案、追訂單。
+        </p>
+        <p class="text-gray-300 leading-relaxed mb-6">
+          現在我把 AI 工具套進自己的業務流程，這些準備工作大半都自動化了。
+          <strong class="text-white">這套課程，就是把我實際在用的東西，直接交給你。</strong>
+        </p>
+        <div class="grid grid-cols-3 gap-4">
+          <div class="text-center rounded-xl bg-white/5 border border-white/8 py-4">
+            <div class="text-2xl font-black text-blue-400">7+</div>
+            <div class="text-gray-400 text-xs mt-1">年 B2B 業務</div>
+          </div>
+          <div class="text-center rounded-xl bg-white/5 border border-white/8 py-4">
+            <div class="text-2xl font-black text-purple-400">B2B</div>
+            <div class="text-gray-400 text-xs mt-1">政府 / 企業客戶</div>
+          </div>
+          <div class="text-center rounded-xl bg-white/5 border border-white/8 py-4">
+            <div class="text-2xl font-black text-blue-400">實戰</div>
+            <div class="text-gray-400 text-xs mt-1">自用工具包</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────── 適合誰 ────────────── -->
+<section class="section-normal py-24 px-5">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-14">
+      <span class="tag">適合誰</span>
+      <h2 class="text-3xl sm:text-4xl font-black mt-4">只要你在跑業務，這套工具就是為你準備的</h2>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-5">
+      <div class="rounded-2xl border border-white/10 bg-white/3 p-6 flex gap-4 items-start">
+        <span class="text-3xl">💼</span>
+        <div>
+          <h4 class="font-bold mb-1">中小企業業務員</h4>
+          <p class="text-gray-400 text-sm leading-relaxed">想多開發客戶，但時間都花在找名單和寫報價上。AI 接手這些，你去多拜訪幾個客戶。</p>
+        </div>
+      </div>
+      <div class="rounded-2xl border border-white/10 bg-white/3 p-6 flex gap-4 items-start">
+        <span class="text-3xl">👔</span>
+        <div>
+          <h4 class="font-bold mb-1">業務主管</h4>
+          <p class="text-gray-400 text-sm leading-relaxed">想讓整個團隊的效率拉起來，但不知道 AI 能怎麼導入。用課程帶一遍，回去教你的業務。</p>
+        </div>
+      </div>
+      <div class="rounded-2xl border border-white/10 bg-white/3 p-6 flex gap-4 items-start">
+        <span class="text-3xl">🚀</span>
+        <div>
+          <h4 class="font-bold mb-1">自由業務 / 接案者</h4>
+          <p class="text-gray-400 text-sm leading-relaxed">一個人打全場，每件事都要自己來。AI 等於幫你請了一個助理，但不用付薪水。</p>
+        </div>
+      </div>
+      <div class="rounded-2xl border border-white/10 bg-white/3 p-6 flex gap-4 items-start">
+        <span class="text-3xl">🌱</span>
+        <div>
+          <h4 class="font-bold mb-1">剛入行的業務新人</h4>
+          <p class="text-gray-400 text-sm leading-relaxed">沒人脈、沒客戶、沒 SOP。這套工具幫你從零快速建起開發節奏，少走三年冤枉路。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────── 定價 ────────────── -->
+<section class="section-alt py-24 px-5" id="pricing">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-14">
+      <span class="tag">6 月限時早鳥</span>
+      <h2 class="text-3xl sm:text-4xl font-black mt-4">選一個適合你的方案</h2>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-6">
+      <!-- 課程方案 -->
+      <div class="relative rounded-3xl border-2 border-blue-500 bg-gradient-to-b from-blue-950/40 to-transparent p-8">
+        <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+          <span class="bg-blue-500 text-white text-xs font-bold px-4 py-1 rounded-full">🔥 早鳥最推</span>
+        </div>
+        <h3 class="text-xl font-black mb-1">AI 業務工具課程</h3>
+        <p class="text-gray-400 text-sm mb-6">自學版，永久觀看，馬上動手</p>
+        <div class="mb-6">
+          <span class="text-4xl font-black text-white">NT$990</span>
+          <span class="text-gray-500 line-through ml-3 text-lg">NT$2,400</span>
+        </div>
+        <ul class="space-y-3 mb-8 text-sm">
+          <li class="flex gap-2 items-start"><span class="text-blue-400 mt-0.5">✓</span> <span class="text-gray-200">6 單元完整影片教學（永久觀看）</span></li>
+          <li class="flex gap-2 items-start"><span class="text-blue-400 mt-0.5">✓</span> <span class="text-gray-200">名單爬蟲工具腳本（含設定教學）</span></li>
+          <li class="flex gap-2 items-start"><span class="text-blue-400 mt-0.5">✓</span> <span class="text-gray-200">提案 / 報價 AI Prompt 庫（30 組）</span></li>
+          <li class="flex gap-2 items-start"><span class="text-blue-400 mt-0.5">✓</span> <span class="text-gray-200">標案通知 Bot 設定包</span></li>
+          <li class="flex gap-2 items-start"><span class="text-blue-400 mt-0.5">✓</span> <span class="text-gray-200">學員專屬 LINE 社群，問題隨時問</span></li>
+        </ul>
+        <a href="https://line.me/R/ti/p/@686czwde"
+           class="btn-primary w-full block text-center text-white font-bold py-4 rounded-2xl">
+          我要早鳥方案 →
+        </a>
+        <p class="text-center text-gray-500 text-xs mt-3">早鳥結束即恢復原價</p>
+      </div>
+
+      <!-- 企業方案 -->
+      <div class="rounded-3xl border border-white/15 bg-white/4 p-8 flex flex-col">
+        <h3 class="text-xl font-black mb-1">企業導入服務</h3>
+        <p class="text-gray-400 text-sm mb-6">客製化，幫你的團隊裝好跑起來</p>
+        <div class="mb-6">
+          <span class="text-4xl font-black text-white">NT$30,000</span>
+          <span class="text-gray-400 text-base ml-2">起</span>
+        </div>
+        <ul class="space-y-3 mb-8 text-sm flex-1">
+          <li class="flex gap-2 items-start"><span class="text-purple-400 mt-0.5">✓</span> <span class="text-gray-200">免費 30 分鐘需求訪談（先了解再報價）</span></li>
+          <li class="flex gap-2 items-start"><span class="text-purple-400 mt-0.5">✓</span> <span class="text-gray-200">針對你的產業客製化工具</span></li>
+          <li class="flex gap-2 items-start"><span class="text-purple-400 mt-0.5">✓</span> <span class="text-gray-200">部署到你的環境，帶團隊上手</span></li>
+          <li class="flex gap-2 items-start"><span class="text-purple-400 mt-0.5">✓</span> <span class="text-gray-200">3 個月售後維護與問題支援</span></li>
+          <li class="flex gap-2 items-start"><span class="text-purple-400 mt-0.5">✓</span> <span class="text-gray-200">月費維護方案（可選）</span></li>
+        </ul>
+        <a href="#consult"
+           class="w-full block text-center border border-white/20 text-white font-bold py-4 rounded-2xl hover:bg-white/5 transition">
+          預約免費諮詢 →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────── FAQ ────────────── -->
+<section class="section-normal py-24 px-5">
+  <div class="max-w-2xl mx-auto">
+    <div class="text-center mb-14">
+      <span class="tag">常見問題</span>
+      <h2 class="text-3xl font-black mt-4">還有疑問？</h2>
+    </div>
+    <div class="space-y-3">
+      <details class="rounded-2xl border border-white/10 bg-white/4 group">
+        <summary class="flex items-center justify-between px-6 py-5 font-semibold">
+          不會寫程式也能用嗎？
+          <span class="faq-icon text-gray-400 text-xl ml-4">+</span>
+        </summary>
+        <p class="px-6 pb-5 text-gray-400 leading-relaxed text-sm">可以。整個課程全程說中文，操作以「複製 → 貼上 → 填空」為主，不需要任何程式背景。第 0 單元環境建好之後，之後的工具大部分都是一個指令跑起來。</p>
+      </details>
+      <details class="rounded-2xl border border-white/10 bg-white/4 group">
+        <summary class="flex items-center justify-between px-6 py-5 font-semibold">
+          適合哪些產業的業務？
+          <span class="faq-icon text-gray-400 text-xl ml-4">+</span>
+        </summary>
+        <p class="px-6 pb-5 text-gray-400 leading-relaxed text-sm">所有 B2B 業務都適用，包含：科技產品、企業貸款/金融、保險、房仲、製造業設備、廣告行銷、資訊服務、政府採購……只要你需要主動開發客戶，這套工具就能用。</p>
+      </details>
+      <details class="rounded-2xl border border-white/10 bg-white/4 group">
+        <summary class="flex items-center justify-between px-6 py-5 font-semibold">
+          買了可以永久看嗎？
+          <span class="faq-icon text-gray-400 text-xl ml-4">+</span>
+        </summary>
+        <p class="px-6 pb-5 text-gray-400 leading-relaxed text-sm">是，永久觀看。課程後續有更新，學員一律免費獲得更新內容。</p>
+      </details>
+      <details class="rounded-2xl border border-white/10 bg-white/4 group">
+        <summary class="flex items-center justify-between px-6 py-5 font-semibold">
+          企業導入服務怎麼進行？
+          <span class="faq-icon text-gray-400 text-xl ml-4">+</span>
+        </summary>
+        <p class="px-6 pb-5 text-gray-400 leading-relaxed text-sm">先安排免費 30 分鐘需求訪談，了解你的產業、客群、現有流程，確認哪些環節最適合自動化。之後我提出客製方案與報價，確認後開始執行，通常 2–4 週可完成導入。</p>
+      </details>
+      <details class="rounded-2xl border border-white/10 bg-white/4 group">
+        <summary class="flex items-center justify-between px-6 py-5 font-semibold">
+          這些工具合法嗎？爬蟲會有問題嗎？
+          <span class="faq-icon text-gray-400 text-xl ml-4">+</span>
+        </summary>
+        <p class="px-6 pb-5 text-gray-400 leading-relaxed text-sm">合法。課程使用的爬蟲工具抓取的是公開資料（Google Maps 公開資訊、104 公開職缺頁面、政府採購公開公告），不涉及未授權存取。Claude AI 使用官方 API，完全合規。</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────── 最終 CTA ────────────── -->
+<section class="hero-bg py-24 px-5" id="consult">
+  <div class="max-w-xl mx-auto text-center">
+    <h2 class="text-3xl sm:text-4xl font-black mb-4">
+      從今天起，讓 AI 替你<br /><span class="text-gradient">多跑一個業務</span>
+    </h2>
+    <p class="text-gray-400 text-lg mb-10 leading-relaxed">
+      早鳥優惠有限，先加 LINE 聊聊，<br />確認適合你再決定要不要買。
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="https://line.me/R/ti/p/@686czwde"
+         class="btn-primary flex items-center justify-center gap-2 text-white font-bold px-8 py-4 rounded-2xl text-base">
+        <svg class="w-5 h-5" viewBox="0 0 48 48" fill="currentColor"><path d="M24 4C12.95 4 4 11.88 4 21.6c0 5.74 3.14 10.83 8.03 14.17-.35 1.3-1.26 4.72-1.44 5.45-.23.9.33 1.83 1.24 1.83.18 0 .36-.04.52-.13l6.54-3.9c1.65.44 3.39.68 5.11.68 11.05 0 20-7.88 20-17.6S35.05 4 24 4z"/></svg>
+        LINE 加好友，先聊再說
+      </a>
+      <a href="https://line.me/R/ti/p/@686czwde"
+         class="border border-white/20 text-white font-semibold px-8 py-4 rounded-2xl text-base hover:bg-white/5 transition flex items-center justify-center">
+        📅 預約免費 30 分鐘諮詢
+      </a>
+    </div>
+    <p class="mt-6 text-gray-500 text-sm">每週開放 5 組，額滿為止</p>
+  </div>
+</section>
+
+<!-- ────────────── FOOTER ────────────── -->
+<footer class="bg-black border-t border-white/5 py-8 px-5 text-center">
+  <p class="text-gray-500 text-sm">© 2026 AI 業務夥伴 · Justin 翁仲昱</p>
+  <p class="text-gray-600 text-xs mt-2">如有疑問請 LINE 聯繫，服務時間 週一至週五 10:00–18:00</p>
+</footer>
+
+<script>
+  // FAQ 展開/收合切換 icon
+  document.querySelectorAll('details').forEach(el => {
+    el.addEventListener('toggle', () => {
+      const icon = el.querySelector('.faq-icon');
+      icon.textContent = el.open ? '−' : '+';
+    });
+  });
+</script>
+
+</body>
+</html>
