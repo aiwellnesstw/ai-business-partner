@@ -380,6 +380,145 @@
       .about-photo { max-width: 160px; margin: 0 auto; }
       .pricing-card.featured { transform: none; }
     }
+
+    /* ── 診斷 Banner ── */
+    .quiz-banner {
+      background: linear-gradient(135deg, #EBF3FB 0%, #D0E5F7 100%);
+      padding: 56px 24px;
+      text-align: center;
+    }
+    .quiz-banner .banner-tag {
+      font-size: 12px; font-weight: 700; color: var(--accent);
+      letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px;
+    }
+    .quiz-banner h3 {
+      font-size: clamp(20px, 3vw, 28px); font-weight: 800;
+      color: var(--dark); margin-bottom: 12px; line-height: 1.35;
+    }
+    .quiz-banner p { font-size: 15px; color: #666; margin-bottom: 28px; }
+    .btn-quiz {
+      background: var(--brand); color: #fff;
+      padding: 15px 40px; border-radius: 8px;
+      font-size: 16px; font-weight: 700;
+      border: none; cursor: pointer; font-family: inherit;
+      transition: transform .2s, opacity .2s; display: inline-block;
+    }
+    .btn-quiz:hover { transform: translateY(-2px); opacity: .9; }
+
+    /* ── Quiz Modal ── */
+    .quiz-overlay {
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(13,31,60,0.75);
+      backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    .quiz-modal {
+      background: #fff; border-radius: 16px;
+      max-width: 560px; width: 100%;
+      max-height: 90vh; overflow-y: auto;
+      padding: 36px 32px; position: relative;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.25);
+    }
+    .quiz-close {
+      position: absolute; top: 14px; right: 18px;
+      background: none; border: none; cursor: pointer;
+      font-size: 26px; color: #bbb; line-height: 1;
+    }
+    .quiz-close:hover { color: var(--dark); }
+    .quiz-step-meta {
+      font-size: 12px; font-weight: 700; color: var(--accent);
+      letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px;
+    }
+    .quiz-progress-track {
+      background: #E5EDF7; border-radius: 4px; height: 5px;
+      overflow: hidden; margin-bottom: 28px;
+    }
+    .quiz-progress-fill {
+      background: var(--accent); height: 100%; border-radius: 4px;
+      transition: width .4s ease;
+    }
+    .quiz-question-title {
+      font-size: clamp(17px, 2.5vw, 21px); font-weight: 800;
+      color: var(--dark); line-height: 1.4; margin-bottom: 22px;
+    }
+    .quiz-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+    .quiz-option {
+      border: 2px solid #E5EDF7; border-radius: 10px;
+      padding: 13px 16px; cursor: pointer;
+      font-size: 14px; color: var(--dark); font-weight: 500;
+      transition: border-color .15s, background .15s;
+      display: flex; align-items: center; gap: 12px; text-align: left;
+    }
+    .quiz-option:hover { border-color: var(--accent); background: var(--light); }
+    .quiz-option.selected { border-color: var(--accent); background: var(--light); color: var(--brand); font-weight: 700; }
+    .quiz-dot {
+      width: 18px; height: 18px; border-radius: 50%;
+      border: 2px solid #ccc; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color .15s, background .15s;
+    }
+    .quiz-option.selected .quiz-dot { border-color: var(--accent); background: var(--accent); }
+    .quiz-option.selected .quiz-dot::after {
+      content: ''; width: 6px; height: 6px;
+      background: #fff; border-radius: 50%; display: block;
+    }
+    .quiz-form { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+    .quiz-form input {
+      border: 2px solid #E5EDF7; border-radius: 8px;
+      padding: 12px 14px; font-size: 14px; color: var(--dark);
+      font-family: inherit; outline: none;
+      transition: border-color .15s;
+    }
+    .quiz-form input:focus { border-color: var(--accent); }
+    .quiz-form input::placeholder { color: #bbb; }
+    .quiz-nav { display: flex; gap: 10px; }
+    .quiz-btn-next {
+      flex: 1; background: var(--accent); color: #fff;
+      border: none; border-radius: 8px;
+      padding: 13px 20px; font-size: 15px; font-weight: 700;
+      cursor: pointer; font-family: inherit;
+      opacity: .45; pointer-events: none;
+      transition: opacity .2s;
+    }
+    .quiz-btn-next.on { opacity: 1; pointer-events: all; }
+    .quiz-btn-next.on:hover { opacity: .85; }
+    .quiz-btn-back {
+      background: #F7F9FC; color: var(--dark);
+      border: 2px solid #E5EDF7; border-radius: 8px;
+      padding: 13px 18px; font-size: 14px; font-weight: 600;
+      cursor: pointer; font-family: inherit;
+      transition: border-color .15s;
+    }
+    .quiz-btn-back:hover { border-color: var(--accent); }
+    .quiz-result { text-align: center; }
+    .quiz-result-emoji { font-size: 44px; margin-bottom: 12px; }
+    .quiz-result h2 { font-size: 22px; font-weight: 800; color: var(--dark); margin-bottom: 6px; }
+    .quiz-result .r-sub { color: #666; font-size: 14px; margin-bottom: 22px; }
+    .result-rec-card {
+      background: var(--light); border: 2px solid var(--accent);
+      border-radius: 12px; padding: 22px; text-align: left; margin-bottom: 20px;
+    }
+    .result-rec-card .r-tag {
+      font-size: 11px; font-weight: 700; color: var(--accent);
+      letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px;
+    }
+    .result-rec-card h3 { font-size: 20px; font-weight: 800; color: var(--dark); margin-bottom: 4px; }
+    .result-rec-card .r-price { font-size: 18px; font-weight: 800; color: var(--brand); margin-bottom: 10px; }
+    .result-rec-card p { font-size: 13px; color: #555; line-height: 1.65; }
+    .btn-line-green {
+      display: block; background: #06C755; color: #fff;
+      padding: 14px 24px; border-radius: 8px;
+      font-size: 15px; font-weight: 700; text-align: center;
+      text-decoration: none; margin-bottom: 10px;
+      transition: opacity .2s;
+    }
+    .btn-line-green:hover { opacity: .85; }
+    .r-note { font-size: 12px; color: #aaa; }
+
+    @media (max-width: 480px) {
+      .quiz-modal { padding: 28px 18px; }
+    }
   </style>
 </head>
 <body>
@@ -398,6 +537,16 @@
   <div class="hero-btns">
     <a href="https://line.me/ti/p/RIbly0k8iA" class="btn-primary" target="_blank">預約免費 30 分鐘電話</a>
     <a href="#pricing" class="btn-secondary">查看服務方案</a>
+  </div>
+</section>
+
+<!-- 診斷 Banner -->
+<section class="quiz-banner">
+  <div class="container">
+    <div class="banner-tag">免費自我診斷</div>
+    <h3>不確定從哪裡開始？<br>花 2 分鐘找出最適合你公司的 AI 切入點</h3>
+    <p>回答 4 個問題，我幫你分析現況並給出個人化建議</p>
+    <button class="btn-quiz" onclick="openQuiz()">開始免費診斷 →</button>
   </div>
 </section>
 
@@ -707,6 +856,229 @@
 <footer>
   <p>© 2026 Justin Wong AI 導入顧問　·　justinxq110982@gmail.com　·　<a href="https://www.linkedin.com/in/justin-wong-b7b582354/" target="_blank" style="color:rgba(255,255,255,0.5);text-decoration:underline;">LinkedIn</a></p>
 </footer>
+
+<!-- ── Quiz Modal ── -->
+<div id="quizOverlay" class="quiz-overlay" style="display:none;" onclick="quizOverlayClick(event)">
+  <div class="quiz-modal">
+    <button class="quiz-close" onclick="closeQuiz()">×</button>
+    <div class="quiz-step-meta" id="qMeta">第 1 步，共 5 步</div>
+    <div class="quiz-progress-track">
+      <div class="quiz-progress-fill" id="qProgress" style="width:20%"></div>
+    </div>
+    <div id="qContent"></div>
+  </div>
+</div>
+
+<script>
+const FORMSPREE_ID = 'xpwprnze'; // 替換成你的 Formspree form ID
+
+const QS = [
+  {
+    key: 'size',
+    q: '你的公司目前規模大約多大？',
+    opts: [
+      { label: '1–9 人（微型企業）', val: 'micro' },
+      { label: '10–49 人（小型企業）', val: 'small' },
+      { label: '50–99 人（中型企業）', val: 'medium' },
+      { label: '100 人以上', val: 'large' },
+    ]
+  },
+  {
+    key: 'stage',
+    q: '目前公司的 AI 導入狀況？',
+    opts: [
+      { label: '完全沒接觸過 AI 工具', val: 'none' },
+      { label: '有訂閱工具，但使用率很低', val: 'low' },
+      { label: '有在用，但各部門各做各的', val: 'scattered' },
+      { label: '已有初步流程，想更系統化', val: 'systematic' },
+    ]
+  },
+  {
+    key: 'pain',
+    q: '你最希望解決的核心問題是？',
+    opts: [
+      { label: '不知道 AI 該從哪裡開始導入', val: 'direction' },
+      { label: '工具太多，不知道選哪個適合', val: 'tools' },
+      { label: '買了工具，但沒人推動讓它落地', val: 'adoption' },
+      { label: '無法向老闆說明 AI 的投資效益', val: 'roi' },
+    ]
+  },
+  {
+    key: 'budget',
+    q: '預計每月可投入的顧問費大概是？',
+    opts: [
+      { label: '5 萬以下（先做一次性評估）', val: 'low' },
+      { label: '5–20 萬（認真規劃，想月顧問陪跑）', val: 'mid' },
+      { label: '20 萬以上（有明確需求，想深度合作）', val: 'high' },
+      { label: '還不確定，想先評估再決定', val: 'unknown' },
+    ]
+  },
+];
+
+let state = { step: 0, ans: {}, c: { name:'', company:'', email:'', phone:'' } };
+
+function openQuiz() {
+  state = { step: 0, ans: {}, c: { name:'', company:'', email:'', phone:'' } };
+  document.getElementById('quizOverlay').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  render();
+}
+function closeQuiz() {
+  document.getElementById('quizOverlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+function quizOverlayClick(e) {
+  if (e.target.id === 'quizOverlay') closeQuiz();
+}
+
+function render() {
+  const total = QS.length + 1;
+  const s = state.step;
+  const pct = Math.round(((s + 1) / (total + 1)) * 100);
+  document.getElementById('qMeta').textContent = `第 ${s + 1} 步，共 ${total} 步`;
+  document.getElementById('qProgress').style.width = pct + '%';
+  if (s < QS.length) renderQ(s);
+  else renderContact();
+}
+
+function renderQ(i) {
+  const q = QS[i];
+  const sel = state.ans[q.key] || null;
+  document.getElementById('qContent').innerHTML = `
+    <div class="quiz-question-title">${q.q}</div>
+    <div class="quiz-options">
+      ${q.opts.map(o => `
+        <div class="quiz-option${sel === o.val ? ' selected' : ''}" onclick="pick('${q.key}','${o.val}',this)">
+          <div class="quiz-dot"></div>${o.label}
+        </div>`).join('')}
+    </div>
+    <div class="quiz-nav">
+      ${i > 0 ? `<button class="quiz-btn-back" onclick="back()">← 上一步</button>` : ''}
+      <button class="quiz-btn-next${sel ? ' on' : ''}" id="qNext" onclick="next()">
+        ${i < QS.length - 1 ? '下一步 →' : '填寫聯絡資訊 →'}
+      </button>
+    </div>`;
+}
+
+function renderContact() {
+  const c = state.c;
+  document.getElementById('qContent').innerHTML = `
+    <div class="quiz-question-title">最後一步！留下你的聯絡資訊，<br>我會在 24 小時內與你聯繫</div>
+    <div class="quiz-form">
+      <input type="text"  placeholder="你的姓名 *"       value="${c.name}"    oninput="uc('name',this.value)" />
+      <input type="text"  placeholder="公司名稱（選填）"   value="${c.company}" oninput="uc('company',this.value)" />
+      <input type="email" placeholder="Email *"           value="${c.email}"   oninput="uc('email',this.value)" />
+      <input type="tel"   placeholder="手機號碼 *"        value="${c.phone}"   oninput="uc('phone',this.value)" />
+    </div>
+    <div class="quiz-nav">
+      <button class="quiz-btn-back" onclick="back()">← 上一步</button>
+      <button class="quiz-btn-next${contactOk() ? ' on' : ''}" id="qNext" onclick="submit()">送出，看我的建議 ✓</button>
+    </div>
+    <p style="font-size:12px;color:#bbb;margin-top:10px;text-align:center;">資料只用於聯繫，不會分享給第三方</p>`;
+}
+
+function uc(f, v) {
+  state.c[f] = v;
+  const btn = document.getElementById('qNext');
+  if (btn) { contactOk() ? btn.classList.add('on') : btn.classList.remove('on'); }
+}
+function contactOk() {
+  const c = state.c;
+  return c.name.trim() && c.email.trim() && c.phone.trim();
+}
+
+function pick(key, val, el) {
+  state.ans[key] = val;
+  document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  const btn = document.getElementById('qNext');
+  if (btn) btn.classList.add('on');
+}
+function next() {
+  if (!state.ans[QS[state.step].key]) return;
+  state.step++; render();
+}
+function back() {
+  if (state.step > 0) { state.step--; render(); }
+}
+
+function recommend() {
+  const { budget, stage } = state.ans;
+  if (budget === 'low' || (budget === 'unknown' && stage === 'none')) {
+    return {
+      plan: 'AI 現況評估報告',
+      price: 'NT$5,000 / 一次性',
+      desc: '最適合剛開始探索的企業。90 分鐘深度會談 + 書面報告，找出最值得優先導入的 3–5 個機會點，不用先花大錢就能摸清楚方向。'
+    };
+  }
+  if (budget === 'high' && stage === 'systematic') {
+    return {
+      plan: '深度合作',
+      price: 'NT$50,000 / 月',
+      desc: '你的公司已有基礎，適合全速推進。全程專案管理、每週同步、外包工程師協調一手包辦，直接協助向管理層報告成效。'
+    };
+  }
+  if (budget === 'high' || stage === 'systematic') {
+    return {
+      plan: '標準執行',
+      price: 'NT$35,000 / 月',
+      desc: '最受歡迎的方案。每月 4 次諮詢、工具選型與導入管理、外包工程師協調，確保 AI 在你的組織裡真正落地。'
+    };
+  }
+  return {
+    plan: '基礎陪跑',
+    price: 'NT$20,000 / 月',
+    desc: '穩健推進的最佳選擇。每月 2 次諮詢 + LINE 隨時支援，把 AI 工具真正用起來，不讓錢白花。'
+  };
+}
+
+async function submit() {
+  if (!contactOk()) return;
+  const btn = document.getElementById('qNext');
+  btn.textContent = '送出中…'; btn.classList.remove('on');
+
+  const fd = new FormData();
+  const c = state.c;
+  fd.append('姓名', c.name);
+  fd.append('公司', c.company || '（未填）');
+  fd.append('Email', c.email);
+  fd.append('手機', c.phone);
+  fd.append('公司規模', state.ans.size || '');
+  fd.append('AI現況', state.ans.stage || '');
+  fd.append('核心痛點', state.ans.pain || '');
+  fd.append('預算範圍', state.ans.budget || '');
+  fd.append('推薦方案', recommend().plan);
+
+  try {
+    await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+      method: 'POST', body: fd, headers: { Accept: 'application/json' }
+    });
+  } catch (_) {}
+
+  showResult();
+}
+
+function showResult() {
+  const rec = recommend();
+  const name = state.c.name.trim().split(/\s+/)[0] || '你';
+  document.getElementById('qMeta').textContent = '診斷完成 🎉';
+  document.getElementById('qProgress').style.width = '100%';
+  document.getElementById('qContent').innerHTML = `
+    <div class="quiz-result">
+      <div class="quiz-result-emoji">✅</div>
+      <h2>${name} 好，這是我給你的建議</h2>
+      <p class="r-sub">根據你的回答，最適合現階段的方案是：</p>
+      <div class="result-rec-card">
+        <div class="r-tag">推薦方案</div>
+        <h3>${rec.plan}</h3>
+        <div class="r-price">${rec.price}</div>
+        <p>${rec.desc}</p>
+      </div>
+      <a href="https://line.me/ti/p/RIbly0k8iA" class="btn-line-green" target="_blank">💬 預約免費 30 分鐘電話確認</a>
+      <p class="r-note">我通常在 24 小時內回覆，也可以直接 LINE 我聊聊</p>
+    </div>`;
+}
+</script>
 
 </body>
 </html>
