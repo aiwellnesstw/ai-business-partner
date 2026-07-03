@@ -925,32 +925,18 @@ function back() {
 }
 
 function recommend() {
-  const { budget, stage } = state.ans;
-  if (budget === 'low' || (budget === 'unknown' && stage === 'none')) {
-    return {
-      plan: 'AI 現況評估報告',
-      price: 'NT$5,000 / 一次性',
-      desc: '最適合剛開始探索的企業。90 分鐘深度會談 + 書面報告，找出最值得優先導入的 3–5 個機會點，不用先花大錢就能摸清楚方向。'
-    };
-  }
-  if (budget === 'high' && stage === 'systematic') {
-    return {
-      plan: '深度合作',
-      price: 'NT$50,000 / 月',
-      desc: '你的公司已有基礎，適合全速推進。全程專案管理、每週同步、外包工程師協調一手包辦，直接協助向管理層報告成效。'
-    };
-  }
-  if (budget === 'high' || stage === 'systematic') {
-    return {
-      plan: '標準執行',
-      price: 'NT$35,000 / 月',
-      desc: '最受歡迎的方案。每月 4 次諮詢、工具選型與導入管理、外包工程師協調，確保 AI 在你的組織裡真正落地。'
-    };
-  }
+  const { stage, pain } = state.ans;
+  const stageDesc = {
+    none:       '你的公司還沒開始接觸 AI，最適合先從一個小流程試點，例如文件整理或客服應答，不需要大改就能看到效果。',
+    low:        '你已經有工具但沒被用起來，問題通常不是工具不夠好，而是沒有人推動落地，可以先抓出卡關的地方。',
+    scattered:  '各部門各做各的，最需要的是先盤點現況、找出可以共用的流程，避免重複做工。',
+    systematic: '你已經有基礎，可以更系統化推進，把好的做法複製到其他流程。'
+  };
+  const painDesc = {
+    knowledge: '尤其你提到的「老闆經驗傳承」問題，很適合把可複製的作業流程做成大家查得到的知識庫，同時保留老闆真正值錢的判斷力。'
+  };
   return {
-    plan: '基礎陪跑',
-    price: 'NT$20,000 / 月',
-    desc: '穩健推進的最佳選擇。每月 2 次諮詢 + LINE 隨時支援，把 AI 工具真正用起來，不讓錢白花。'
+    desc: (stageDesc[stage] || '每家公司狀況不同，我會依你的回答給你更具體的方向。') + (painDesc[pain] ? '　' + painDesc[pain] : '')
   };
 }
 
@@ -962,14 +948,11 @@ async function submit() {
   const fd = new FormData();
   const c = state.c;
   fd.append('姓名', c.name);
-  fd.append('公司', c.company || '（未填）');
-  fd.append('Email', c.email);
   fd.append('手機', c.phone);
+  fd.append('公司統編', c.taxId);
   fd.append('公司規模', state.ans.size || '');
   fd.append('AI現況', state.ans.stage || '');
   fd.append('核心痛點', state.ans.pain || '');
-  fd.append('預算範圍', state.ans.budget || '');
-  fd.append('推薦方案', recommend().plan);
 
   try {
     await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
@@ -988,16 +971,14 @@ function showResult() {
   document.getElementById('qContent').innerHTML = `
     <div class="quiz-result">
       <div class="quiz-result-emoji">✅</div>
-      <h2>${name} 好，這是我給你的建議</h2>
-      <p class="r-sub">根據你的回答，最適合現階段的方案是：</p>
+      <h2>${name} 好，這是我給你的初步建議</h2>
+      <p class="r-sub">根據你的回答：</p>
       <div class="result-rec-card">
-        <div class="r-tag">推薦方案</div>
-        <h3>${rec.plan}</h3>
-        <div class="r-price">${rec.price}</div>
+        <div class="r-tag">初步建議方向</div>
         <p>${rec.desc}</p>
       </div>
       <a href="https://line.me/ti/p/RIbly0k8iA" class="btn-line-green" target="_blank">💬 預約免費 30 分鐘電話確認</a>
-      <p class="r-note">我通常在 24 小時內回覆，也可以直接 LINE 我聊聊</p>
+      <p class="r-note">我通常在 24 小時內回覆，也可以直接 LINE 我聊聊，完全不收費</p>
     </div>`;
 }
 </script>
