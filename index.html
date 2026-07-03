@@ -526,7 +526,7 @@
 <!-- 導覽列 -->
 <nav>
   <div class="nav-logo">Justin Wong｜中租 AI 賦能業務</div>
-  <a href="https://line.me/ti/p/RIbly0k8iA" class="nav-cta" target="_blank">預約免費健檢</a>
+  <button class="nav-cta" style="border:none;cursor:pointer;font-family:inherit;" onclick="openQuiz()">預約免費健檢</button>
 </nav>
 
 <!-- 英雄區 -->
@@ -536,7 +536,6 @@
   <p>我免費幫中小企業老闆盤點 AI 導入機會，把公司的缺漏和機會點說清楚。<br>你不需要懂技術，只需要 30 分鐘聊聊。</p>
   <div class="hero-btns">
     <button class="btn-primary" onclick="openQuiz()">開始免費診斷 →</button>
-    <a href="https://line.me/ti/p/RIbly0k8iA" class="btn-secondary" target="_blank">直接預約電話</a>
   </div>
 </section>
 
@@ -781,8 +780,8 @@
 <section class="final-cta">
   <div class="container">
     <h2>準備好讓 AI 真的幫到你的公司了嗎？</h2>
-    <p>先從一通 30 分鐘的免費電話開始，我幫你釐清方向，不花任何錢。</p>
-    <a href="https://line.me/ti/p/RIbly0k8iA" class="btn-white" target="_blank">預約免費 30 分鐘電話</a>
+    <p>花 2 分鐘做免費 AI 賦能健檢，我會親自看過每份回覆，盡快跟你聯繫。</p>
+    <button class="btn-white" style="border:none;cursor:pointer;font-family:inherit;" onclick="openQuiz()">開始免費 AI 賦能健檢 →</button>
   </div>
 </section>
 
@@ -803,7 +802,7 @@
 </div>
 
 <script>
-const FORMSPREE_ID = 'xojoqndv';
+const SHEET_WEBHOOK = 'https://script.google.com/macros/s/AKfycbzGAIQzvdusQRl5znfxE5KKuwmMUBiLK74vn25VcZK4nMDjDw_lnFDpkZgJWvZflVtaew/exec';
 
 const QS = [
   {
@@ -834,6 +833,15 @@ const QS = [
       { label: '工具太多，不知道選哪個適合', val: 'tools' },
       { label: '買了工具，但沒人推動讓它落地', val: 'adoption' },
       { label: '老闆的經驗卡在腦袋裡，員工接不住', val: 'knowledge' },
+    ]
+  },
+  {
+    key: 'funding',
+    q: '目前公司有沒有資金週轉、貸款相關的需求？',
+    opts: [
+      { label: '有，金額大概抓得出來', val: 'clear' },
+      { label: '未來半年內可能會需要', val: 'maybe' },
+      { label: '目前沒有，單純想了解 AI', val: 'none' },
     ]
   },
 ];
@@ -945,18 +953,23 @@ async function submit() {
   const btn = document.getElementById('qNext');
   btn.textContent = '送出中…'; btn.classList.remove('on');
 
-  const fd = new FormData();
   const c = state.c;
-  fd.append('姓名', c.name);
-  fd.append('手機', c.phone);
-  fd.append('公司統編', c.taxId);
-  fd.append('公司規模', state.ans.size || '');
-  fd.append('AI現況', state.ans.stage || '');
-  fd.append('核心痛點', state.ans.pain || '');
+  const payload = {
+    name: c.name,
+    phone: c.phone,
+    taxId: c.taxId,
+    size: state.ans.size || '',
+    stage: state.ans.stage || '',
+    pain: state.ans.pain || '',
+    funding: state.ans.funding || '',
+  };
 
   try {
-    await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
-      method: 'POST', body: fd, headers: { Accept: 'application/json' }
+    await fetch(SHEET_WEBHOOK, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
     });
   } catch (_) {}
 
