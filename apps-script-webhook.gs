@@ -20,11 +20,13 @@ const SHEET_NAMES = {
   ai_health_check: 'AI健檢',
   insurance: '保險',
   loan: '貸款',
+  rental: '租賃車',
 };
 const SHEET_HEADERS = {
   ai_health_check: ['時間', '姓名', '手機', '公司統編', '公司規模', 'AI現況', '核心痛點', '資金需求'],
   insurance: ['時間', '聯絡人姓名', '聯絡電話', '公司統編', '想了解的保險', '轉介員工編號'],
   loan: ['時間', '聯絡人姓名', '聯絡電話', '公司統編', '進貨付款習慣', '收款帳期', '擴充計畫', '資金需求'],
+  rental: ['時間', '聯絡人姓名', '聯絡電話', '公司統編', '車輛取得方式', '保養感受', '汰換週期', '使用型態', '增購/汰換計畫'],
 };
 
 function doPost(e) {
@@ -79,6 +81,18 @@ function appendRow(sheet, source, data) {
       labelExpansionPlan(data.expansionPlan),
       labelFunding(data.funding),
     ]);
+  } else if (source === 'rental') {
+    sheet.appendRow([
+      new Date(),
+      data.contactName || '',
+      data.contactPhone || '',
+      data.taxId || '',
+      labelAcquireMethod(data.acquireMethod),
+      labelMaintenanceView(data.maintenanceView),
+      labelReplaceCycle(data.replaceCycle),
+      labelUsagePattern(data.usagePattern),
+      labelRentalPlan(data.plan),
+    ]);
   } else {
     sheet.appendRow([
       new Date(),
@@ -117,6 +131,21 @@ function buildTelegramMessage(source, data) {
       `資金需求：${labelFunding(data.funding)}`,
     ].join('\n');
   }
+  if (source === 'rental') {
+    const urgent = data.plan === 'clear';
+    const tag = urgent ? '🔥 租賃車高機會名單（有明確計畫）' : '🚗 長短期租賃車健檢名單';
+    return [
+      tag,
+      `聯絡人：${data.contactName || ''}`,
+      `電話：${data.contactPhone || ''}`,
+      `公司統編：${data.taxId || ''}`,
+      `車輛取得方式：${labelAcquireMethod(data.acquireMethod)}`,
+      `保養感受：${labelMaintenanceView(data.maintenanceView)}`,
+      `汰換週期：${labelReplaceCycle(data.replaceCycle)}`,
+      `使用型態：${labelUsagePattern(data.usagePattern)}`,
+      `增購/汰換計畫：${labelRentalPlan(data.plan)}`,
+    ].join('\n');
+  }
   const urgent = data.funding === 'clear';
   const tag = urgent ? '🔥 高機會名單（有明確資金需求）' : '🔔 新名單進來了';
   return [
@@ -151,4 +180,19 @@ function labelReceivableDays(v) {
 }
 function labelExpansionPlan(v) {
   return { planned: '有明確計畫', evaluating: '評估中', none: '沒有' }[v] || v || '';
+}
+function labelAcquireMethod(v) {
+  return { cash_buy: '現金買斷', loan_buy: '貸款分期購入', rent_flexible: '用到多少台租多少台' }[v] || v || '';
+}
+function labelMaintenanceView(v) {
+  return { troublesome: '蠻花心力，常常要喬保養／維修時間', manageable: '還好，已有固定配合保養廠', minimal: '車輛不多，沒特別感覺' }[v] || v || '';
+}
+function labelReplaceCycle(v) {
+  return { short: '3年內', medium: '3-5年', long_none: '5年以上，或沒特別規劃' }[v] || v || '';
+}
+function labelUsagePattern(v) {
+  return { long_term: '長期固定使用（業務車、公務車隊）', short_term: '短期專案需要（工程、展會、臨時調度）', both: '兩者都有' }[v] || v || '';
+}
+function labelRentalPlan(v) {
+  return { clear: '有明確計畫', maybe: '半年內可能會', none: '目前沒有' }[v] || v || '';
 }
