@@ -41,6 +41,13 @@
       transition: opacity .2s;
     }
     .nav-cta:hover { opacity: .85; }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .nav-back {
+      color: rgba(255,255,255,0.75);
+      font-size: 13px; font-weight: 600;
+      white-space: nowrap;
+    }
+    .nav-back:hover { color: #fff; }
 
     /* ── 英雄區 ── */
     .hero {
@@ -526,7 +533,10 @@
 <!-- 導覽列 -->
 <nav>
   <div class="nav-logo">Justin Wong｜中租 AI 賦能業務</div>
-  <button class="nav-cta" style="border:none;cursor:pointer;font-family:inherit;" onclick="openQuiz()">預約免費健檢</button>
+  <div class="nav-right">
+    <a class="nav-back" href="https://aiwellnesstw.github.io/Justin/">← 回名片</a>
+    <button class="nav-cta" style="border:none;cursor:pointer;font-family:inherit;" onclick="openQuiz()">預約免費健檢</button>
+  </div>
 </nav>
 
 <!-- 英雄區 -->
