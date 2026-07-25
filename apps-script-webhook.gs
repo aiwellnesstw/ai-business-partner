@@ -31,6 +31,13 @@ const SHEET_HEADERS = {
 
 function doPost(e) {
   const data = JSON.parse(e.postData.contents);
+
+  if (data.event === 'step') {
+    logProgress(data);
+    return ContentService.createTextOutput(JSON.stringify({ ok: true }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
   const source = data.source || 'ai_health_check'; // 舊版 AI 健檢表單沒有帶 source 欄位，預設當作 AI健檢
 
   const sheet = getOrCreateSheet(source);
@@ -45,6 +52,30 @@ function doPost(e) {
 
   return ContentService.createTextOutput(JSON.stringify({ ok: true }))
     .setMimeType(ContentService.MimeType.JSON);
+}
+
+// 多步驟 quiz 表單（貸款/租賃車）每進到新的一步就會 ping 這裡一次，
+// 用來算漏斗流失率，不發 Telegram（每個訪客都會觸發，發了會洗版）。
+const PROGRESS_SHEET_NAME = '填答進度';
+const PROGRESS_HEADERS = ['時間', '表單', '步驟', '共幾步', '題目'];
+const PROGRESS_FORM_LABELS = { loan: '企業貸款', rental: '長短期租賃車' };
+
+function logProgress(data) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let sheet = ss.getSheetByName(PROGRESS_SHEET_NAME);
+  if (!sheet) {
+    sheet = ss.insertSheet(PROGRESS_SHEET_NAME);
+    sheet.appendRow(PROGRESS_HEADERS);
+  } else if (sheet.getLastRow() === 0) {
+    sheet.appendRow(PROGRESS_HEADERS);
+  }
+  sheet.appendRow([
+    new Date(),
+    PROGRESS_FORM_LABELS[data.source] || data.source || '',
+    data.step || '',
+    data.total || '',
+    data.question || '',
+  ]);
 }
 
 function getOrCreateSheet(source) {
