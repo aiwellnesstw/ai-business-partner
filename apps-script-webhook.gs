@@ -76,6 +76,15 @@ function doGet(e) {
     return ContentService.createTextOutput(JSON.stringify({ ok: false, error: 'unknown source' }))
       .setMimeType(ContentService.MimeType.JSON);
   }
+
+  // 密語預檢：POST 回應在這個部署環境下讀不到（script.googleusercontent.com 的
+  // echo 轉址常常 404），所以密語驗證改成先用 GET 問一次（GET 回應讀得到），
+  // 通過才送出真正寫入用的 no-cors POST。doPost 仍會再驗一次密語，雙重把關。
+  if (e.parameter.checkPassphrase !== undefined) {
+    return ContentService.createTextOutput(JSON.stringify({ ok: e.parameter.checkPassphrase === NEEDS_BOARD_PASSPHRASE }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const sheet = ss.getSheetByName(SHEET_NAMES.needs_board);
   const items = [];
