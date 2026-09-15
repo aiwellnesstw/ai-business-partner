@@ -1,6 +1,8 @@
 /**
- * 共用名單收集後台：AI 賦能健檢 + 中租保險諮詢 + 企業貸款健檢
- * 三個表單共用同一個 Google 表單檔案（不同工作表分頁）+ 同一支 Telegram Bot。
+ * 共用名單收集後台：AI 賦能健檢 + 中租保險諮詢 + 企業貸款健檢 + 長短期租賃車 + 頭家需求牆
+ * 表單共用同一個 Google 表單檔案（不同工作表分頁）+ 同一支 Telegram Bot。
+ * 頭家需求牆比較特別：除了 POST 寫入，還多一個 doGet 讀取介面（給 needs.html 顯示公開清單用），
+ * 部署設定「存取權限：任何人」本來就涵蓋 GET，不用額外設定。
  *
  * 部署方式（已部署過的話，改完程式碼要重新走一次「新版本」步驟才會生效）：
  * 1. 開啟這個 Google Sheet → 擴充功能 → Apps Script
@@ -21,12 +23,14 @@ const SHEET_NAMES = {
   insurance: '保險',
   loan: '貸款',
   rental: '租賃車',
+  needs_board: '頭家需求牆',
 };
 const SHEET_HEADERS = {
   ai_health_check: ['時間', '姓名', '手機', '公司統編', '公司規模', 'AI現況', '核心痛點', '資金需求'],
   insurance: ['時間', '聯絡人姓名', '聯絡電話', '公司統編', '想了解的保險', '轉介員工編號'],
   loan: ['時間', '聯絡人姓名', '聯絡電話', '公司統編', '進貨付款習慣', '收款帳期', '擴充計畫', '資金需求'],
   rental: ['時間', '聯絡人姓名', '聯絡電話', '公司統編', '車輛取得方式', '保養感受', '汰換週期', '使用型態', '增購/汰換計畫'],
+  needs_board: ['時間', '類型', '分類', '標題', '說明', '聯絡方式', '暱稱'],
 };
 
 function doPost(e) {
@@ -51,6 +55,38 @@ function doPost(e) {
   });
 
   return ContentService.createTextOutput(JSON.stringify({ ok: true }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+// 頭家需求牆是唯一需要「讀回列表」的表單，公開 GET 給網頁抓資料顯示。
+// 只回傳 needs_board 分頁的內容，其他分頁（名單）一律不透過 GET 外流。
+function doGet(e) {
+  const source = e.parameter.source;
+  if (source !== 'needs_board') {
+    return ContentService.createTextOutput(JSON.stringify({ ok: false, error: 'unknown source' }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = ss.getSheetByName(SHEET_NAMES.needs_board);
+  const items = [];
+  if (sheet && sheet.getLastRow() > 1) {
+    const rows = sheet.getRange(2, 1, sheet.getLastRow() - 1, SHEET_HEADERS.needs_board.length).getValues();
+    rows.forEach((row, i) => {
+      const [time, type, category, title, detail, contact, postedBy] = row;
+      if (!title) return;
+      items.push({
+        id: 'r' + (i + 2),
+        time: time instanceof Date ? time.toISOString() : String(time || ''),
+        type: type || '',
+        category: category || '',
+        title: title || '',
+        detail: detail || '',
+        contact: contact || '',
+        postedBy: postedBy || '',
+      });
+    });
+  }
+  return ContentService.createTextOutput(JSON.stringify({ ok: true, items: items }))
     .setMimeType(ContentService.MimeType.JSON);
 }
 
@@ -124,6 +160,16 @@ function appendRow(sheet, source, data) {
       labelUsagePattern(data.usagePattern),
       labelRentalPlan(data.plan),
     ]);
+  } else if (source === 'needs_board') {
+    sheet.appendRow([
+      new Date(),
+      labelNeedType(data.needType),
+      data.category || '',
+      data.title || '',
+      data.detail || '',
+      data.contact || '',
+      data.postedBy || '',
+    ]);
   } else {
     sheet.appendRow([
       new Date(),
@@ -177,6 +223,16 @@ function buildTelegramMessage(source, data) {
       `增購/汰換計畫：${labelRentalPlan(data.plan)}`,
     ].join('\n');
   }
+  if (source === 'needs_board') {
+    return [
+      `📌 頭家需求牆有新貼文（${labelNeedType(data.needType)}）`,
+      `分類：${data.category || ''}`,
+      `標題：${data.title || ''}`,
+      `說明：${data.detail || ''}`,
+      `聯絡方式：${data.contact || ''}`,
+      `暱稱：${data.postedBy || ''}`,
+    ].join('\n');
+  }
   const urgent = data.funding === 'clear';
   const tag = urgent ? '🔥 高機會名單（有明確資金需求）' : '🔔 新名單進來了';
   return [
@@ -226,4 +282,7 @@ function labelUsagePattern(v) {
 }
 function labelRentalPlan(v) {
   return { clear: '有明確計畫', maybe: '半年內可能會', none: '目前沒有' }[v] || v || '';
+}
+function labelNeedType(v) {
+  return { supply: '供給／我有', demand: '需求／我要找' }[v] || v || '';
 }
