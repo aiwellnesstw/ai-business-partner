@@ -18,6 +18,11 @@
 const TG_TOKEN = '8813957664:AAHwFJ1Osaw1coRwgAYqA6wEGtLFQ-Wc4mQ'; // 沿用 tender-watcher Bot
 const TG_CHAT_ID = '-1004349277813';
 
+// 頭家需求牆防洗版用的通關密語，只存在這裡（不會出現在 needs.html 原始碼），
+// 群組公告這個字給成員，連結流出群組外的人不知道就貼不進來。
+// 隨時可以換：改這行 → 部署 → 管理部署作業 → 新版本 → 部署。
+const NEEDS_BOARD_PASSPHRASE = '賺大錢';
+
 const SHEET_NAMES = {
   ai_health_check: 'AI健檢',
   insurance: '保險',
@@ -43,6 +48,11 @@ function doPost(e) {
   }
 
   const source = data.source || 'ai_health_check'; // 舊版 AI 健檢表單沒有帶 source 欄位，預設當作 AI健檢
+
+  if (source === 'needs_board' && data.passphrase !== NEEDS_BOARD_PASSPHRASE) {
+    return ContentService.createTextOutput(JSON.stringify({ ok: false, error: 'wrong_passphrase' }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
 
   const sheet = getOrCreateSheet(source);
   appendRow(sheet, source, data);
