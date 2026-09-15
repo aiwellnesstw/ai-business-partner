@@ -35,7 +35,7 @@ const SHEET_HEADERS = {
   insurance: ['時間', '聯絡人姓名', '聯絡電話', '公司統編', '想了解的保險', '轉介員工編號'],
   loan: ['時間', '聯絡人姓名', '聯絡電話', '公司統編', '進貨付款習慣', '收款帳期', '擴充計畫', '資金需求'],
   rental: ['時間', '聯絡人姓名', '聯絡電話', '公司統編', '車輛取得方式', '保養感受', '汰換週期', '使用型態', '增購/汰換計畫'],
-  needs_board: ['時間', '類型', '分類', '標題', '說明', '聯絡方式', '暱稱'],
+  needs_board: ['時間', '類型', '分類', '標題', '說明', '聯絡方式', '暱稱', '置頂'],
 };
 
 function doPost(e) {
@@ -91,7 +91,7 @@ function doGet(e) {
   if (sheet && sheet.getLastRow() > 1) {
     const rows = sheet.getRange(2, 1, sheet.getLastRow() - 1, SHEET_HEADERS.needs_board.length).getValues();
     rows.forEach((row, i) => {
-      const [time, type, category, title, detail, contact, postedBy] = row;
+      const [time, type, category, title, detail, contact, postedBy, pinned] = row;
       if (!title) return;
       items.push({
         id: 'r' + (i + 2),
@@ -102,6 +102,7 @@ function doGet(e) {
         detail: detail || '',
         contact: contact || '',
         postedBy: postedBy || '',
+        pinned: !!String(pinned || '').trim(), // Sheet「置頂」欄有填任何值就算置頂，Justin 手動填/清空控制
       });
     });
   }
@@ -188,6 +189,7 @@ function appendRow(sheet, source, data) {
       data.detail || '',
       data.contact || '',
       data.postedBy || '',
+      '', // 置頂：預設空白，Justin 要置頂時手動在 Sheet 這欄填任意值（例如 Y）
     ]);
   } else {
     sheet.appendRow([
