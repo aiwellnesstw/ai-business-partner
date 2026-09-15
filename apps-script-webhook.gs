@@ -307,3 +307,9 @@ function labelRentalPlan(v) {
 function labelNeedType(v) {
   return { supply: '供給／我有', demand: '需求／我要找' }[v] || v || '';
 }
+
+// 保持腳本熱機用，Google 免費帳號閒置一陣子會冷啟動，導致 needs.html 第一次讀取要等 10 秒以上。
+// 不碰任何 Sheet 資料，純粹讓執行環境保持活著。搭配「觸發條件」設定每 10 分鐘跑一次（時間驅動）。
+function keepWarm() {
+  return true;
+}
