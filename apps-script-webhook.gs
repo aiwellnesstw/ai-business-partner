@@ -22,6 +22,9 @@ const TG_CHAT_ID = '-1004349277813';
 // 群組公告這個字給成員，連結流出群組外的人不知道就貼不進來。
 // 隨時可以換：改這行 → 部署 → 管理部署作業 → 新版本 → 部署。
 const NEEDS_BOARD_PASSPHRASE = '賺大錢';
+// 2026-10-10 Justin 要求先拿掉密語：false＝不驗密語，有連結就能貼。
+// 要恢復防洗版：改成 true，同時 needs.html 要把密語欄位和 GET 預檢加回來（git 歷史有）。
+const NEEDS_BOARD_REQUIRE_PASSPHRASE = false;
 
 const SHEET_NAMES = {
   ai_health_check: 'AI健檢',
@@ -49,7 +52,7 @@ function doPost(e) {
 
   const source = data.source || 'ai_health_check'; // 舊版 AI 健檢表單沒有帶 source 欄位，預設當作 AI健檢
 
-  if (source === 'needs_board' && data.passphrase !== NEEDS_BOARD_PASSPHRASE) {
+  if (source === 'needs_board' && NEEDS_BOARD_REQUIRE_PASSPHRASE && data.passphrase !== NEEDS_BOARD_PASSPHRASE) {
     return ContentService.createTextOutput(JSON.stringify({ ok: false, error: 'wrong_passphrase' }))
       .setMimeType(ContentService.MimeType.JSON);
   }
@@ -81,7 +84,7 @@ function doGet(e) {
   // echo 轉址常常 404），所以密語驗證改成先用 GET 問一次（GET 回應讀得到），
   // 通過才送出真正寫入用的 no-cors POST。doPost 仍會再驗一次密語，雙重把關。
   if (e.parameter.checkPassphrase !== undefined) {
-    return ContentService.createTextOutput(JSON.stringify({ ok: e.parameter.checkPassphrase === NEEDS_BOARD_PASSPHRASE }))
+    return ContentService.createTextOutput(JSON.stringify({ ok: !NEEDS_BOARD_REQUIRE_PASSPHRASE || e.parameter.checkPassphrase === NEEDS_BOARD_PASSPHRASE }))
       .setMimeType(ContentService.MimeType.JSON);
   }
 
